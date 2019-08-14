@@ -1,7 +1,7 @@
 <config>
 	<modules>
 		<Unbxd_Searchcore>
-			<version>1.0.24</version>
+			<version>1.0.25</version>
 		</Unbxd_Searchcore>
 	</modules>
     <admin>
