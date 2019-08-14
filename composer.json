@@ -1,9 +1,9 @@
 {
     "name": "OpenMageModuleFostering/unbxd_feedconnector",
     "type": "magento-module",
-    "license": "OSL",
+    "license": "OSL-v3.0",
     "homepage": "",
-    "description": "Unbxd module to integrate the search",
+    "description": "pushes the products from the magento to unbxd servers",
     "authors": [
     {
         "name": "ananthesh",
