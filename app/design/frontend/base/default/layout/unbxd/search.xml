@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <!-- ON ALL PAGES -->
+    <default>
+        <reference name="before_body_end">
+                <block name="unbxd.autosuggest" template="unbxd/search/autosuggest.phtml" after="-" type="unbxd_search/autocomplete"/>
+        </reference>
+    </default>
+</layout>

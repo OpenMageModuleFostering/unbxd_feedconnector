@@ -1,0 +1,12 @@
+<config>
+    <modules>
+        <Unbxd_Searchcore>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Unbxd_Searchcore>
+      <Unbxd_Search>
+           <active>true</active>
+           <codePool>local</codePool>
+       </Unbxd_Search>
+    </modules>
+</config>
