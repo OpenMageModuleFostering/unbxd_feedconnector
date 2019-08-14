@@ -1,0 +1,16 @@
+{
+    "name": "OpenMageModuleFostering/unbxd_feedconnector",
+    "type": "magento-module",
+    "license": "OSL-v3.0",
+    "homepage": "",
+    "description": "pushes the products from the magento to unbxd servers",
+    "authors": [
+    {
+        "name": "ananthesh",
+        "email": "ananthesh@unbxd.com"
+    }
+],
+    "suggest": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}
