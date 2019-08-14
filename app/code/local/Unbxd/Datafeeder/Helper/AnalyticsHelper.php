@@ -88,5 +88,18 @@ class Unbxd_Datafeeder_Helper_AnalyticsHelper extends Mage_Core_Helper_Abstract{
 		}
 		return 'unbxdattr="order" unbxdparam_sku="'.$product->getData('store_id').'"';
 	}
+
+	/**
+     * Checks whether request is a navigation 
+     *
+     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
+     * @return bool
+     */
+    public function isNavigation() {
+        if(Mage::app()->getRequest()->getControllerName() == "category") {
+            return true;
+        }
+        return false;
+    }
 }
 ?>

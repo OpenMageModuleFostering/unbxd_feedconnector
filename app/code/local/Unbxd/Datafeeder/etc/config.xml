@@ -2,7 +2,7 @@
 <config>
   <modules>
     <Unbxd_Datafeeder>
-      <version>0.1.0</version>
+      <version>1.0.5</version>
     </Unbxd_Datafeeder>
   </modules>
   <frontend>
@@ -90,7 +90,7 @@
             <table>unbxd_datafeeder_conf</table>
           </conf>
           <field>
-            <table>unbxd_search_field</table>
+            <table>unbxd_field</table>
           </field>
         </entities>
       </datafeeder_mysql4>

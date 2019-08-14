@@ -28,6 +28,7 @@
 		$this->file =  Mage::getBaseDir('tmp').DS.'unbxdFeed.xml';
 		$this-log("calling setfeilds method");
 		$this->fields = [];
+		$this-> setFieldType();
 	}
 
 	public function setFields($site) {
@@ -156,7 +157,7 @@
  	 */
  	private function writeXmlProductContents($fromdate,$todate,$site,$operation,$ids){
 	    
-	    $this-> setFieldType();
+	   
  		$collection=$this->getCatalogCollection($fromdate,$todate,$site,$operation,$ids);
 	    // get total size
  		//set the time limit to infinite
@@ -168,6 +169,7 @@
 			$collection->clear();
 			$collection->getSelect()->limit($this->PAGE_SIZE, ($pageNum++) * $this->PAGE_SIZE);
 			$collection->load();
+			echo "<pre>";print_r($collection);echo "</pre>";
 			if(count($collection) == 0){
 				if($pageNum == 1){
 					$this->log("No products found");
@@ -214,9 +216,6 @@
 		if($operation != "add"){
 			return $this->getAttributesInXML('uniqueId',$product->getData('entity_id'));
 		}
-		$spsPrice = $product->getData('special_price');
-		$spsPrice = isset($spsPrice)? $spsPrice :0;
-		$content = $content.$this->getAttributesInXML('saving',(int)$product->getData('price') - (int)$spsPrice);
 			
  		foreach($product->getData('') as $columnHeader=>$columndata){
 			
@@ -291,11 +290,19 @@
  	* This is optimized method, where it doesn't make a database call to get fieldType 
  	* where it fetches from the local variable, which holds the information of field to fieldType mapping
  	*/
-    private function isMultiSelect($attributeName = ""){
+    public function isMultiSelect($attributeName = ""){
 		if($this->getFieldType($attributeName) == "select" || $this->getFieldType($attributeName) == "multiselect" ){
 			return true;
 		}
 		return false;
+    }
+
+
+    public function isImage($attributeName = "") {
+    	if($this->getFieldType($attributeName) == "media_image") {
+    		return true;
+    	}
+    	return false;
     }
 	
  	/**
@@ -360,7 +367,6 @@
  		$content='';
  		
  		foreach($columndata as $element){
- 			
  			$content=$content.$this->getAttributesInXML($columnHeader,$element);
  		} 		
  		
@@ -432,7 +438,7 @@
 		    if ($operation == "add") {
 		    	// select all the attributes
 				$website =Mage::getModel("core/website")->setName($site);
-				$visiblityCondition = array('in' => array(2,3,4));
+				$visiblityCondition = array('in' => array(4));
 
 				$collection = Mage::getResourceModel('catalog/product_collection')
 							->addWebsiteFilter($this->validateSite($site))
@@ -449,7 +455,7 @@
 				$collection = Mage::getResourceModel('catalog/product_collection');
 				if(sizeof($ids) > 0) {
                     $condition = array('in' => $ids);
-                    $collection= $collection->addAttributeToFilter('entity_id',$condition)->addAttributeToSelect('entity_id');
+                    $collection = $collection->addAttributeToFilter('entity_id',$condition)->addAttributeToSelect('entity_id');
                 }
             }
 
@@ -500,7 +506,7 @@
  	/**
  	* method to create the feed
  	**/
- 	public function createFeed($fromdate,$todate,$site,$operation,$ids){ 		
+ 	public function createFeed($fromdate,$todate,$site,$operation,$ids){		
  		if($this->createXmlFile()){
  			$this->log("started writing header");
  			if(!$this->writeXmlHeaderContents($operation)){
