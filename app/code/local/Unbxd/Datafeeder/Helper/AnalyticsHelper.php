@@ -1,5 +1,5 @@
 <?php
-class Unbxd_Datafeeder_Helper_Analyticshelper extends Mage_Core_Helper_Abstract{
+class Unbxd_Datafeeder_Helper_AnalyticsHelper extends Mage_Core_Helper_Abstract{
 
 	/**
 	* Returns unbxd script tag
@@ -74,7 +74,7 @@ class Unbxd_Datafeeder_Helper_Analyticshelper extends Mage_Core_Helper_Abstract{
 		if (!$product instanceof Mage_Catalog_Model_Product ) {
 			Mage::throwException("$product parameter to getProductClickAttributes method should be of type Mage_Catalog_Model_Product");
 		}
-		return 'unbxdattr="AddToCart" unbxdparam_sku="'.$product->getData('entity_id').'"';
+		return 'unbxdattr="AddToCart" unbxdparam_sku="'.$product->getData('store_id').'"';
 	}
 
 	/**
@@ -86,7 +86,7 @@ class Unbxd_Datafeeder_Helper_Analyticshelper extends Mage_Core_Helper_Abstract{
 		if (!$product instanceof Mage_Catalog_Model_Product ) {
 			Mage::throwException("$product parameter to getProductClickAttributes method should be of type Mage_Catalog_Model_Product");
 		}
-		return 'unbxdattr="order" unbxdparam_sku="'.$product->getData('entity_id').'"';
+		return 'unbxdattr="order" unbxdparam_sku="'.$product->getData('store_id').'"';
 	}
 
 	/**

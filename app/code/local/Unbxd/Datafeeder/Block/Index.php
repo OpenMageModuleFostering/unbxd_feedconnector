@@ -5,7 +5,8 @@ class Unbxd_Datafeeder_Block_Index extends Mage_Adminhtml_Block_Template
 {
 	public function getFullindexFormAction()
 	{
-		return Mage::getUrl('*/config/index', array('_secure' => Mage::app()->getFrontController()->getRequest()->isSecure()));
+		
+		return Mage::getUrl('*/*/fullindex', array('_secure' => Mage::app()->getFrontController()->getRequest()->isSecure()));
 	}
 	
 	public function getTaxonomyUploadFormAction(){

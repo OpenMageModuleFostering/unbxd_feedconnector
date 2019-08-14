@@ -14,7 +14,7 @@ class Unbxd_Datafeeder_Model_Attribute{
 				$this->attributeMap[$option["label"]] = $option["value"];
 			}
 		}
-        return array_key_exists($value, $this->attributeMap)?$this->attributeMap[$value]:NULL;
+		return $this->attributeMap[$label];
 	}
 
 }

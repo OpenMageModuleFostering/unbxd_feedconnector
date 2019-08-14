@@ -27,6 +27,7 @@ class Unbxd_Datafeeder_IndexController extends Mage_Adminhtml_Controller_Action 
 
     public function indexAction()
     {	
+    	error_log("index actions");
     	$this->loadLayout();
    		$this->_addContent($this->getLayout()->createBlock('unbxd_datafeeder/index')->setTemplate('datafeeder/conf.phtml'));
     	$this->renderLayout();	
@@ -36,8 +37,7 @@ class Unbxd_Datafeeder_IndexController extends Mage_Adminhtml_Controller_Action 
     	$_helper=Mage::helper('unbxd_datafeeder/UnbxdIndexingHelper');
     	$fromdate="1970-01-01 00:00:00";
     	$site=$this->getRequest()->getPost("site");
-    	//$_helper->indexUnbxdFeed($fromdate,$site);
-        Mage::getSingleton('unbxd_datafeeder/feed_feedmanager')->process($fromdate,$site);
+    	$_helper->indexUnbxdFeed($fromdate,$site);
 		echo "Done";
     }
     
