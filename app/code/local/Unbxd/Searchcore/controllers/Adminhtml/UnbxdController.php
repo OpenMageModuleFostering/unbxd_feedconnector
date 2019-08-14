@@ -5,7 +5,7 @@
  * @package Unbxd_Searchcore
  * @author Unbxd Software Pvt. Ltd {
  */
-class Unbxd_Searchcore_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action {
+class Unbxd_Searchcore_Adminhtml_UnbxdController extends Mage_Adminhtml_Controller_Action {
 
     /**
      * @return void

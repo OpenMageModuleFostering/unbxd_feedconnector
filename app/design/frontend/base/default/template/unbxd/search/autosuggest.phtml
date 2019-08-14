@@ -2,8 +2,14 @@
 <?php
 $website = Mage::app()->getWebsite();
 $config = Mage::helper('unbxd_search')->getEngineConfigData('autosuggest');
-$siteKey = Mage::helper('unbxd_search')->getSiteName();
-$apiKey = Mage::helper('unbxd_search')->getApiKey();
+$siteKey = "";
+$apiKey = "";
+try {
+    $siteKey = Mage::helper('unbxd_search')->getSiteName();
+    $apiKey = Mage::helper('unbxd_search')->getApiKey();
+} catch(Exception $e) {
+    //ignoring the exception
+}
 $isAutosuggestActive = !is_null($siteKey) && !is_null($apiKey)
     && Mage::helper('unbxd_searchcore')->isConfigTrue($website,
         Unbxd_Searchcore_Helper_Constants::AUTOSUGGEST_STATUS);

@@ -213,7 +213,7 @@ class Unbxd_Search_Model_Resource_Engine_Unbxdsearch extends Unbxd_Search_Model_
                'stats' => 'price', 'indent' => 'on',
                'uuid' => (isset($_COOKIE['unbxd_userId'])) ? $_COOKIE['unbxd_userId'] : NULL,
                'facet.multiselect' => $multiselectValue?"true":"false"))
-            ->setDebug(true)
+            ->setDebug(false)
             ->setSort($this->_prepareSortFields(array_key_exists('sort_by', $params)?$params['sort_by']:array()))
             ->search();     
         if (!$data instanceof Unbxd_ResultSet) {

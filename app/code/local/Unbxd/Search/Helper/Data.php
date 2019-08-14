@@ -557,9 +557,16 @@ class Unbxd_Search_Helper_Data extends Mage_Core_Helper_Abstract
      * This method checks whether hosted search is active or not
      * @return boolean
      */
-    public function isHostedSearchActive() {
-        $siteKey = $this->getSiteName();
-        $apiKey = $this->getApiKey();
+    public function isHostedSearchActive()
+    {
+        $siteKey = null;
+        $apiKey = null;
+        try {
+            $siteKey = $this->getSiteName();
+            $apiKey = $this->getApiKey();
+        } catch(Exception $e) {
+            //ignoring the exception
+        }
         $searchConf = $this->getEngineConfigData('search');
         $hostedSearchConf = Mage::helper('unbxd_searchcore')->isConfigTrue(Mage::app()->getWebsite(),Unbxd_Searchcore_Helper_Constants::SEARCH_HOSTED_STATUS);
         $searchModConf = Mage::helper('unbxd_searchcore')->isConfigTrue(Mage::app()->getWebsite(), Unbxd_Searchcore_Helper_Constants::SEARCH_MOD_STATUS);

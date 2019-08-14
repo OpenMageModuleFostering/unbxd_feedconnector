@@ -21,8 +21,7 @@ class Unbxd_Search_Model_Catalog_Layer extends Mage_Catalog_Model_Layer
         if (isset($this->_productCollections[$category->getId()])) {
             $collection = $this->_productCollections[$category->getId()];
         } else {
-            $collection = Mage::helper('catalogsearch')
-                ->getEngine()
+            $collection = Mage::getResourceModel('unbxd_search/engine_unbxdsearch')
                 ->getResultCollection()
                 ->setStoreId($category->getStoreId())
                 ->addCategoryId($category->getId())

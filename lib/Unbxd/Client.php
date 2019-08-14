@@ -7,14 +7,14 @@
    You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
-	
+
    Unless required by applicable law or agreed to in writing, software
    distributed under the License is distributed on an "AS IS" BASIS,
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
  *
- * 
+ *
  * Created on 19-Mar-2013
  * author:antz
  * company:unbxd
@@ -25,15 +25,15 @@ class Unbxd_Client {
 	/**
 	 * Default Unbxdsearch ruleset
 	 */
-	const DEFAULT_RULESET = 'search';	
+	const DEFAULT_RULESET = 'search';
 
 	/**
 	 * Default transport
 	 *
 	 * @var string
 	 */
-	const DEFAULT_TRANSPORT = 'http';
-	
+	const DEFAULT_TRANSPORT = 'https';
+
 	protected $params = array(
 		'ruleset' => self::DEFAULT_RULESET,
 		'multiSelectFacet' => false,
@@ -43,9 +43,9 @@ class Unbxd_Client {
 		'query' => '',
 		'category-id' => ''
 		);
-	
+
 	protected $address = '';
-	
+
 	/**
 	 * Number of seconds after a timeout occurs for every request
 	 * If using indexing of file large value necessary.
@@ -59,12 +59,12 @@ class Unbxd_Client {
 	 */
 	protected $_config = array(
 		'ruleset' => self::DEFAULT_RULESET,
-		'transport' => self::DEFAULT_TRANSPORT,		
+		'transport' => self::DEFAULT_TRANSPORT,
 		'timeout' => self::TIMEOUT,
-		'headers' => array()	
+		'headers' => array()
 	);
-	
-	
+
+
 
 	/**
 	 * Creates a new Unbxd client
@@ -147,20 +147,20 @@ class Unbxd_Client {
 	public function getTransport() {
 		return $this->getConfig('transport');
 	}
-	
+
 
 	/**
 	 * sets the attribute filter
 	 * @param mixed $filter array
 	 * @return Unbxd_Client Client object
-	 */	
+	 */
 	public function setFilters($filter =array()){
 		if(isset($filter) && is_array($filter)){
 			$this->params['filter'] = $filter;
 		}
 		return $this;
 	}
-		
+
 	/**
 	 * sets the range filter
 	 * @param mixed $rangeFilter array
@@ -171,8 +171,8 @@ class Unbxd_Client {
 			$this->params['rangeFilter'] = $rangeFilter;
 		}
 		return $this;
-	}		
-	
+	}
+
 	/**
 	 * sets the offset
 	 * @param mixed $pg integer
@@ -186,7 +186,7 @@ class Unbxd_Client {
 		}
 		return $this;
 	}
-	
+
 	/**
 	 * sets the limit
 	 * @param mixed $limit integer
@@ -198,10 +198,10 @@ class Unbxd_Client {
 		}else{
 			$this->params['limit'] = 20;
 		}
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * sets the ruleset
 	 * @param mixed $ruleset string
@@ -215,7 +215,7 @@ class Unbxd_Client {
 		}
 		return $this;
 	}
-	
+
 	/**
 	 * sets the sort
 	 * @param mixed $sorts array
@@ -224,12 +224,12 @@ class Unbxd_Client {
 	public function setSort($sorts = array()){
 		if(isset($sorts) && is_array($sorts)){
 			$this->params['sort'] = $sorts;
-		}	
+		}
 		return $this;
 	}
-	
+
 	/**
-	 * sets the facet fields, This is mainly used for 	
+	 * sets the facet fields, This is mainly used for
 	 * @param mixed $sorts array
 	 * @return Unbxd_Client Client object
 	 */
@@ -239,7 +239,7 @@ class Unbxd_Client {
 		}
 		return $this;
 	}
-	
+
 	/**
 	 * sets the other options which can be used
 	 * @param mixed $options array
@@ -251,7 +251,7 @@ class Unbxd_Client {
 		}
 		return $this;
 	}
-	
+
 	/**
 	 * sets the search query
 	 * @param mixed $query search
@@ -263,7 +263,7 @@ class Unbxd_Client {
 		}
 		return $this;
 	}
-	
+
 	/**
 	 * sets the Category Id
 	 * @param mixed $query search
@@ -312,20 +312,20 @@ class Unbxd_Client {
 		return $this;
 
 	}
-	
-	
+
+
 	/**
 	 *
 	 * Search through Unbxd api
 	 *
 	 * @return Unbxd_ResultSet object
-	 */	
+	 */
 	public function search(){
 		$service = new 	Unbxd_Service();
-		
+
 		return $service->search($this->params,$this->address);
-			
+
 	}
 
-		
+
 }
