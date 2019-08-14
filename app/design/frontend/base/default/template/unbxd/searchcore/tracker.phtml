@@ -2,8 +2,8 @@
     $siteKey = "";
     $apiKey = "";
     try {
-        $siteKey = Mage::helper('unbxd_recscore')->getSiteName();
-        $apiKey = Mage::helper('unbxd_recscore')->getApiKey();
+        $siteKey = Mage::helper('unbxd_searchcore')->getSiteName();
+        $apiKey = Mage::helper('unbxd_searchcore')->getApiKey();
     } catch(Exception $e) {
         //ignore the exception
     }
