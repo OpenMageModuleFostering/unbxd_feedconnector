@@ -26,7 +26,10 @@ class Unbxd_Datafeeder_Model_Mysql4_Conf extends Mage_Core_Model_Mysql4_Abstract
     }
 
     public function updateAction($action,$value)
-    {    	
+    {
+        if (!isset($value) || $value == "") {
+            return;
+        }
     	$collection=Mage::getModel('datafeeder/conf')->getCollection()
     	->addFieldToFilter('action',$action);
     	

@@ -7,8 +7,6 @@ class Unbxd_Datafeeder_Helper_Data extends Mage_Core_Helper_Abstract
 	{
 		$params=$this->_getRequest()->getParams();
 		return $params;
-	}
-	
-	
+	}	
 	
 }

@@ -2,6 +2,13 @@
 class Unbxd_Datafeeder_ConfigController extends   Mage_Core_Controller_Front_Action
 {
 
+	public function indexAction(){
+        $fromdate="1970-01-01 00:00:00";
+        $site=$this->getRequest()->getParam("site");
+        Mage::getSingleton('unbxd_datafeeder/feed_feedmanager')->process($fromdate,$site);
+        echo "Done";
+    }
+
 	/**
 	* gets all the stores
 	*/	
@@ -62,6 +69,11 @@ class Unbxd_Datafeeder_ConfigController extends   Mage_Core_Controller_Front_Act
 			$response["siteName"] = Mage::getResourceSingleton("datafeeder/conf")->getValue($site."/siteName");
 			echo json_encode($response);
 		}
+    }
+
+    public function upgradedbAction() {
+    	Mage::getResourceSingleton("datafeeder/upgrade")->upgrade010To105();
+    	echo json_encode( array('success' => 'true' ));	
     }
 }
 ?>
