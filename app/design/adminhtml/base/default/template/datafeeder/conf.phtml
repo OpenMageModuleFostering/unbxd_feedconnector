@@ -51,6 +51,15 @@
 				</tr>
 				<tr>
 					<td class="label">
+						<b>Unbxd Site Key: </b>
+					</td>
+					<td class="value">				
+						<input type="text" id="siteName" name="siteName" value="" disabled/>
+					</td>
+					</tr>
+				</tr>
+				<tr>
+					<td class="label">
 					</td>
 					<td class="value">
 						<input type="button" name="editButton" value="EDIT"/> <input style="margin-left: 10px;" type="submit" value="SAVE"/>
@@ -64,6 +73,7 @@
 	
 		$jq('[name=editButton]').click(function(evt){
 			$jq('[name="feedName"]').attr('disabled', false);
+			$jq('[name="siteName"]').attr('disabled', false);
 		});
 
 		function progressbar()
@@ -110,6 +120,7 @@
 					success: function(data) {
 				
 						if(data.feed !== "empty") $jq('[name=feedName]').val(data.feed); else $jq('[name=feedName]').val("");
+						if(data.feed !== "empty") $jq('[name=siteName]').val(data.siteName); else $jq('[name=siteName]').val("");
 						
 
 					},
