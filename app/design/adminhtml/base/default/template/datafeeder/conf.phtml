@@ -221,12 +221,14 @@
 					});
 			 	$jq.ajax({
 				  	url: "<?php echo $this->getSaveFieldUrl();?>",
-				  	timeout:3000,
+				  	timeout:30000,
 				  	type:"POST",
 					dataType: "json",
 				  	data:fields
+				}).done( function(data) {
+					createTable('<?php echo $this->getEditUrl();?>');
 				});
-				createTable('<?php echo $this->getEditUrl();?>');
+				
 			}
 
 			function createTable(ajaxurl)
@@ -257,14 +259,14 @@
 
 			function addFieldConfTableHeader() {
 				return "<tr>" + 
-								"<th>Field Name</th>" + 
-								"<th>Status</th>" + 
-								"<th>Data Type</th>" + 
-								"<th>Autosuggest</th>" + 
-								"<th>Add to configurable product</th>" + 
-								"<th>Image configuration</th>" + 
-								'<td class="scope-label"></td>' +
-								"</tr>";
+					"<th>Field Name</th>" + 
+					"<th>Status</th>" + 
+					"<th>Data Type</th>" + 
+					"<th>Autosuggest</th>" + 
+					"<th>Add to configurable product</th>" + 
+					"<th>Image configuration</th>" + 
+					'<td class="scope-label"></td>' +
+					"</tr>";
 			}
 
 			function constructRow(key, value, childExists) {

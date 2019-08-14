@@ -10,7 +10,7 @@ class Unbxd_Datafeeder_Model_Feed_Feedmanager {
  		$fields=array('file'=>'@'.$this->fileName.';filename=unbxdFeedRenamed.json');
 	 	$header = array('Content-Type: multipart/form-data');
 	
- 		$url="http://feed.unbxdapi.com/upload/v2/".$this->key."/".$this->siteName;
+ 		$url="http://feed.unbxdapi.com/upload/v2/".$this->key."/".$this->siteName."?fullimport=true";
  		
  		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL,$url);
@@ -18,7 +18,7 @@ class Unbxd_Datafeeder_Model_Feed_Feedmanager {
 		curl_setopt($ch, CURLOPT_POSTFIELDS,$fields);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		try{
-            $this->log('pushing the feed');
+            $this->log('pushing the feed to '.$url);
             // push the feed to the server
 			$response = $this->exec($ch);
 		}catch(Exception $Ex){

@@ -63,6 +63,11 @@ class Unbxd_Datafeeder_ConfigController extends   Mage_Core_Controller_Front_Act
 			echo json_encode($response);
 		}
     }
+
+    public function upgradedbAction() {
+    	Mage::getResourceSingleton("datafeeder/upgrade")->upgrade010To105();
+    	echo json_encode( array('success' => 'true' ));	
+    }
 }
 ?>
 

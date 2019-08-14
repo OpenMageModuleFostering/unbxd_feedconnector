@@ -27,7 +27,7 @@
 		$this->logFile = Mage::getBaseDir('log').DS.'generic.log';
 		$this->file =  Mage::getBaseDir('tmp').DS.'unbxdFeed.xml';
 		$this-log("calling setfeilds method");
-		$this->fields = [];
+		$this->fields = array();
 		$this-> setFieldType();
 	}
 
@@ -291,7 +291,7 @@
  	* where it fetches from the local variable, which holds the information of field to fieldType mapping
  	*/
     public function isMultiSelect($attributeName = ""){
-		if($this->getFieldType($attributeName) == "select" || $this->getFieldType($attributeName) == "multiselect" ){
+		if($this->getFieldType($attributeName) == "select" || $this->getFieldType($attributeName) == "multiselect" || $attributeName == "categoryIds"){
 			return true;
 		}
 		return false;
@@ -310,7 +310,7 @@
  	* This checks it present in the global array 'categoryMap', if it is not there fetches from db
  	* So that once it gets one category, it doesn't make db call again for the same category
  	*/
-    private function getCategory($category_id = ""){
+    public function getCategory($category_id = ""){
 		if(!isset($this->categoryMap[$category_id])){
 			$category = Mage::getModel('catalog/category')->load($category_id);
 			$this->categoryMap[$category_id] = $category;

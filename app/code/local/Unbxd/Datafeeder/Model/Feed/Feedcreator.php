@@ -93,6 +93,7 @@ class Unbxd_Datafeeder_Model_Feed_Feedcreator {
  		$collection=$this->getCatalogCollection($fromdate,$todate,$site,$operation,$ids);
 	    // get total size
  		//set the time limit to infinite
+ 		ignore_user_abort(true);
  		set_time_limit(0);
 		$pageNum = 0;	
 		$this->log('started writing products');
@@ -152,6 +153,10 @@ class Unbxd_Datafeeder_Model_Feed_Feedcreator {
 		$this->fields["entity_id"] =  array(self::STATUS => 1, 
 														self::DATA_TYPE => "text",
 														self::AUTOSUGGEST => 0 );
+		$this->fields["categoryIds"] =  array(self::STATUS => 1, 
+														self::DATA_TYPE => "text",
+														self::AUTOSUGGEST => 0 );
+		
 		$this->fields = array_merge($this->fields, Mage::getResourceSingleton("datafeeder/field")->getFeaturedFields());
 	}
 

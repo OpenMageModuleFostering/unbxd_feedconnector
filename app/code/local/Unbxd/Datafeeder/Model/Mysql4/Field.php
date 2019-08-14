@@ -24,9 +24,13 @@ class Unbxd_Datafeeder_Model_Mysql4_Field extends Mage_Core_Model_Mysql4_Abstrac
 	*/
 	public function getFieldMapping($site, $enabledFields = false) {
 		$results = Mage::getModel('datafeeder/field')->getCollection()->addFieldToFilter(self::SITE, $site);
-		$fieldMapping = [];
+		$fieldMapping = array();
 		$_reader = Mage::getSingleton('core/resource')->getConnection('core_read');
-		$table = $_reader->getTableName(self::TABLE_NAME);
+		if(method_exists($write, 'getTableName')) {
+			$table = $write->getTableName(self::TABLE_NAME);
+		} else {
+			$table = self::TABLE_NAME;
+		}
 		$select = $_reader->select();
 		$select->from($table);
 		$filterCond = self::SITE . " = '" . $site . "'";
@@ -54,7 +58,7 @@ class Unbxd_Datafeeder_Model_Mysql4_Field extends Mage_Core_Model_Mysql4_Abstrac
 	**/
 	public function getFields($site) {
 		$fieldMapping = $this->getFieldMapping($site);
-		$deltaUpdate =[];
+		$deltaUpdate = array();
 		$attributes = Mage::helper('unbxd_datafeeder/UnbxdIndexingHelper')->getAttributes();
 		foreach($attributes as $attribute){
 			$fieldName = $attribute->getAttributeCode();
@@ -91,20 +95,26 @@ class Unbxd_Datafeeder_Model_Mysql4_Field extends Mage_Core_Model_Mysql4_Abstrac
 	*/
 	public function updateFields($fieldMapping, $site) {
 		$write = Mage::getSingleton('core/resource')->getConnection('core_write');
+		if(method_exists($write, 'getTableName')) {
+			$table = $write->getTableName(self::TABLE_NAME);
+		} else {
+			$table = self::TABLE_NAME;
+		}
 		foreach($fieldMapping as $fieldName=>$values) {
 			$values = json_decode($values, true);
 			if (!isset($values[self::STATUS]) || !isset($values[self::DATA_TYPE]) || 
 				!($values[self::STATUS] == 0 || $values[self::STATUS] == 1)) {
 				throw new Exception("Invalid data with field " . $fieldName);
 			} 
-			$write->update($write->getTableName(self::TABLE_NAME), 
-				array(self::STATUS => $values[self::STATUS], 
-					self::DATA_TYPE => $values[self::DATA_TYPE],
-					self::AUTOSUGGEST => $values[self::AUTOSUGGEST],
-					self::IMAGE_HEIGHT => $values[self::IMAGE_HEIGHT],
-					self::IMAGE_WIDTH =>$values[self::IMAGE_WIDTH],
-					self::GENERATE_IMAGE =>$values[self::GENERATE_IMAGE]), 
-				self::SITE . "='".  $site . "' AND " . self::FIELD_NAME . "='".$fieldName."'"); 
+			$updateQuery = 'UPDATE `'. $table .'` set '.
+					self::STATUS ." = '".$values[self::STATUS]."' , ".
+					self::DATA_TYPE." = '". $values[self::DATA_TYPE]."' ,  ".
+					self::AUTOSUGGEST." = '". $values[self::AUTOSUGGEST]."' ,  ".
+					self::IMAGE_HEIGHT." = '".  (is_int($values[self::IMAGE_HEIGHT])?$values[self::IMAGE_HEIGHT]:0) ."' ,  ".
+					self::IMAGE_WIDTH ." = '". (is_int($values[self::IMAGE_WIDTH])?$values[self::IMAGE_WIDTH]:0)."' ,  ".
+					self::GENERATE_IMAGE." = '".$values[self::GENERATE_IMAGE]."' ". 
+					' where '.self::SITE . "='".  $site . "' AND " . self::FIELD_NAME . "='".$fieldName."'";
+			$write->query($updateQuery);
 		}
 	}
 
@@ -113,9 +123,9 @@ class Unbxd_Datafeeder_Model_Mysql4_Field extends Mage_Core_Model_Mysql4_Abstrac
 	*/
 	public function saveField($fieldMapping, $site) {
 		$write = Mage::getSingleton('core/resource')->getConnection('core_write');
-		$insertingRequestArray = [];	
+		$insertingRequestArray = array();
 		foreach($fieldMapping as $field=>$value) { 
-			$insertingRequest = [];
+			$insertingRequest = array();
 			$insertingRequest[self::FIELD_NAME] = $field;
 			$insertingRequest[self::STATUS] = $value[self::STATUS];
 			$insertingRequest[self::SITE] = $site;
@@ -126,8 +136,13 @@ class Unbxd_Datafeeder_Model_Mysql4_Field extends Mage_Core_Model_Mysql4_Abstrac
 			$insertingRequest[self::GENERATE_IMAGE] = $value[self::GENERATE_IMAGE];
 			$insertingRequestArray[] = $insertingRequest;
 		}
+		if(method_exists($write, 'getTableName')) {
+			$table = $write->getTableName(self::TABLE_NAME);
+		} else {
+			$table = self::TABLE_NAME;
+		}
 
-		$write->insertMultiple($write->getTableName(self::TABLE_NAME), $insertingRequestArray);
+		$write->insertMultiple($table, $insertingRequestArray);
 	}
 
 	/*
@@ -164,11 +179,16 @@ class Unbxd_Datafeeder_Model_Mysql4_Field extends Mage_Core_Model_Mysql4_Abstrac
 		return $featuredFields;
 	}
 
-	private function getField($dataType, $multiValued, $autosuggest) {
+	public function getField($dataType, $multiValued, $autosuggest) {
 		return array( self::DATA_TYPE => $dataType,
 					self::MULTIVALUED => ($multiValued=="true")?1:0,
 					self::AUTOSUGGEST => ($autosuggest=="true")?1:0 );
 
+	}
+
+
+	public function getConflictedFeatureFieldLust() {
+		return array('gender');
 	}
 }
 ?>

@@ -21,7 +21,7 @@ CREATE TABLE `{$installer->getTable('unbxd_field')}` (
   `image_width` int(5) NOT NULL DEFAULT '0',
   `generate_image` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`field_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1670 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `{$installer->getTable('unbxd_datafeeder_conf')}`;
 

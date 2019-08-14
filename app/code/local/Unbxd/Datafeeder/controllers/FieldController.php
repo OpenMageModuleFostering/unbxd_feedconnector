@@ -42,6 +42,7 @@ class Unbxd_Datafeeder_FieldController extends  Mage_Core_Controller_Front_Actio
 		try {
 			$fields = Mage::getResourceSingleton(self::FIELD_MODEL)->updateFields($params,$site);
 		} catch(Exception $ex) {
+			error_log($ex->getMessage());
 			echo json_encode(array("success"=>"false", "message" => $ex));
 			return;
 		}
