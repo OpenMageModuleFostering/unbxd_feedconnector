@@ -6,4 +6,15 @@
                 <block name="unbxd.autosuggest" template="unbxd/search/autosuggest.phtml" after="-" type="unbxd_search/autocomplete"/>
         </reference>
     </default>
+    <!-- To Enable InPage ajax in magento uncomment this configuration-->
+    <!--<catalogsearch_result_index>
+       <reference name="left">
+                <remove name="catalogsearch.leftnav"/>
+        </reference>
+        <reference name="content">
+                <remove name="search.result"/>
+                <block name="unbxd.autosuggest" template="unbxd/search/list.phtml" after="-" type="core/template"/>
+        </reference>
+    </catalogsearch_result_index>
+    -->
 </layout>

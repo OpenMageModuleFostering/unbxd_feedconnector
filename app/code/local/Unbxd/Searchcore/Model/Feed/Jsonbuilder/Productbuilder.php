@@ -69,7 +69,7 @@ class Unbxd_Searchcore_Model_Feed_Jsonbuilder_Productbuilder extends
 		if (!Mage::helper('unbxd_searchcore')
 			->isConfigTrue($website, Unbxd_Searchcore_Helper_Constants::INCLUDE_OUT_OF_STOCK)
 			&& !is_null($this->isSalableWithBasicAttr($product))) {
-			return $this->isSalableWithBasicAttr($product);
+			return !$this->isSalableWithBasicAttr($product);
 		}
 
 		$filters = $this->_getFeedHelper()->getFilters($website);
